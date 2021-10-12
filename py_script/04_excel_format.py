@@ -3,21 +3,10 @@ import os
 import numpy as np
 import pandas as pd
 
-
-housing_price_csv_dir = '../data/test'
-
-# value_names = ['SingleFamilyDetachedIndex', 'SingleFamilyDetachedReference',
-#                'SingleFamilyAttachedIndex', 'SingleFamilyAttachedReference',
-#                'TownHouseIndex', 'TownHouseReference', 'ApartmentIndex',
-#                'ApartmentReference']
-
-# print(value_names)
 value_names = ['Region', 'ComIndex', 'Composite', 'SFDIndex', 'SingleFamilyDetached',
                'SFAIndex', 'SingleFamilyAttached', 'THIndex', 'TownHouse', 'ApaIndex', 'Apartment']
 
 for file in os.listdir():
-    # print(file)
-    #     if file[:4] in ['2012']:
     try:
         year = file[:4]
         month = file[4:6]
@@ -62,11 +51,11 @@ for file in os.listdir():
                  'Apartment',
                  'Apartment Change'
                  ]]
+        i = df[((df.Region == '! TURN PAGE FOR CITY OF TORONTO')
+               | (df.Region == 'TABLES OR CLICK HERE:'))].index
+        df = df.drop(df.index[i])
         new_name = '{}{}{}'.format(year, month, table)
-        print(new_name)
-        df.to_csv('../final/'+str(new_name)+'t1.csv', index=False)
+        df.to_csv('../final/'+str(new_name)+'.csv', index=False)
+        print(file, 'Revised csv file save to final folder...\n')
     except:
-        year = file[:4]
-
-# df = pd.read_csv("201202t1.csv", error_bad_lines=False, index_col=0)
-# print(df.head(3))
+        print(file, 'Failed Convert...\n')
