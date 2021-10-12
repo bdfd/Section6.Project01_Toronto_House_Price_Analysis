@@ -19,16 +19,13 @@ def monthToNum(shortMonth):
 
 
 for file in os.listdir():
-    # print(file)
+
     file_name, file_ext = os.path.splitext(file)
-    # print(file_name)
-    # print(file_ext)
+
     f_year, f_month = file_name.split('_')
-    # print(file_name.split('_'))
-    # print(monthToNum(f_month))
+
     r_month = str(monthToNum(f_month)).zfill(2)
-    # # print(r_month)
-    # print('{}{}{}'.format(f_year, r_month, file_ext))
+
     new_name = '{}{}{}'.format(f_year, r_month, file_ext)
-    # # print(new_name)
+
     os.rename(file, str(new_name))
