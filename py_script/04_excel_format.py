@@ -64,7 +64,7 @@ for file in os.listdir():
                  ]]
         new_name = '{}{}{}'.format(year, month, table)
         print(new_name)
-        df.to_csv(str(new_name)+'t1rev.csv', index=False)
+        df.to_csv('../final/'+str(new_name)+'t1.csv', index=False)
     except:
         year = file[:4]
 
