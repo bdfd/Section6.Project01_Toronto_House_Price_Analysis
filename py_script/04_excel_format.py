@@ -55,7 +55,7 @@ for file in os.listdir():
                | (df.Region == 'TABLES OR CLICK HERE:'))].index
         df = df.drop(df.index[i])
         new_name = '{}{}{}'.format(year, month, table)
-        df.to_csv('../final/'+str(new_name)+'.csv', index=False)
+        df.to_csv('../final/'+str(year)+'/'+str(new_name)+'.csv', index=False)
         print(file, 'Revised csv file save to final folder...\n')
     except:
         print(file, 'Failed Convert...\n')
