@@ -7,10 +7,10 @@ value_names = ['Region', 'ComIndex', 'Composite', 'SFDIndex', 'SingleFamilyDetac
                'SFAIndex', 'SingleFamilyAttached', 'THIndex', 'TownHouse', 'ApaIndex', 'Apartment']
 
 for file in os.listdir():
+    year = file[:4]
+    month = file[4:6]
+    table = file[6:8]
     try:
-        year = file[:4]
-        month = file[4:6]
-        table = file[6:8]
         df = pd.read_csv(f'{file}', skiprows=1)
         df = df.rename(columns={'Unnamed: 0': value_names[0],
                                 'Index': value_names[1],
@@ -35,7 +35,7 @@ for file in os.listdir():
         df[['Apartment', 'Apartment Change']] = df['Apartment'].str.split(
             ' ', 1, expand=True)
         df = df[['Region',
-                'ComIndex',
+                 'ComIndex',
                  'Composite',
                  'Composite Change',
                  'SFDIndex',
@@ -52,10 +52,11 @@ for file in os.listdir():
                  'Apartment Change'
                  ]]
         i = df[((df.Region == '! TURN PAGE FOR CITY OF TORONTO')
-               | (df.Region == 'TABLES OR CLICK HERE:'))].index
+                | (df.Region == 'TABLES OR CLICK HERE:'))].index
         df = df.drop(df.index[i])
         new_name = '{}{}{}'.format(year, month, table)
-        df.to_csv('../final/'+str(year)+'/'+str(new_name)+'.csv', index=False)
+        df.to_csv('../final/'+str(year)+'/' +
+                  str(new_name)+'.csv', index=False)
         print(file, 'Revised csv file save to final folder...\n')
     except:
         print(file, 'Failed Convert...\n')
